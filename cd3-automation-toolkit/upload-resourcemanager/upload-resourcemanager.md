@@ -15,7 +15,7 @@ The objectives of this lab are:
 - Create a Resource Manager Stack
 
 ### Prerequisites
-Please follow the previous lab till the last step. Once you are able to provision OCI event alarms and notifications, you are all set to continue with this lab.
+Please follow the ```create-eventsalarms``` lab till the last step. Once you are able to provision OCI Events, Alarms and Notifications, you are all set to continue with this lab.
 
 ## Task 1: Create a Resource Manager Stack
 
@@ -25,7 +25,7 @@ Please follow the previous lab till the last step. Once you are able to provisio
     e.g. python setUpOCI.py /cd3user/tenancies/usr1_livelab/usr1_livelab_setUpOCI.properties
     ```
 
-2. Type *option 9* for developer services and *option 1* from submenu to *upload current terraform files/state to Resource Manager*.
+2. Select *option 12* for Developer services and *option 1* from submenu to *upload current terraform files/state to Resource Manager*.
 
 3. Once the *execution* is successful, you will see the below stack in resource manager and file will be generated under the folder.
 

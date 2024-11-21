@@ -44,26 +44,33 @@ Please follow the previous lab till the last step. Once you are able to provisio
 
 ## Task 2: Deploy OCI Event Rule, Alarm and Notifications
 
-1. Place *CD3-CIS-ManagementServices-template.xlsx* Excel sheet at appropriate location in your container and provide the corresponding path in cd3file parameter at below path.
+1. Place *CD3-CIS-ManagementServices-template.xlsx* Excel sheet at any location inside your container. 
+
+2. Open ```<prefix>_setUpOCI.properties``` under below path:
+
+    ```/cd3user/tenancies/<prefix>/<prefix>_setUpOCI.properties```
+
+3. Under ```cd3file``` parameter, add the path of the input Excel sheet.
 
     ```
-    /cd3user/tenancies /<prefix>/<prefix>_setUpOCI.properties
     e.g. cd3file=/cd3user/tenancies/usr1_livelab/CD3-CIS-ManagementServices-template.xlsx
     ```
+
+    In the same file, make sure ```workflow_type``` parameter is set to ```create_resources```.
 
 2. *Execute* the setUpOCI Script from below path:
 
     ```
+    cd /cd3user/oci_tools/cd3_automation_toolkit/
     python setUpOCI.py /cd3user/tenancies/<prefix>/<prefix>_setUpOCI.properties
-    e.g. cd3file=/cd3user/tenancies/usr1_livelab/CD3-CIS-ManagementServices-template.xlsx
     ```
 
-3. Type *option 8* for management services from Menu and *option 2* from submenu for *add/modify/delete events*.
+3. Select *option 11* for ```Management services``` from Menu and *options 1,2,3* from submenu for *Notifications, Events and Alarms*.
 
-4. Once the execution is *successful*, tfvars file will be generated under below folder in that region.
+4. Once the execution is *successful*, ```<prefix>_events.auto.tfvars``` file will be generated under below folder in the region selected.
 
     ```
-    <prefix>_events.auto.tfvars file under /cd3user/tenancies/<prefix>/terraform_files/<region_dir>
+    /cd3user/tenancies/<prefix>/terraform_files/<region_dir>/<managementservices>
     ```
 
 5. Navigate to the above path and *execute* the terraform commands:
@@ -75,16 +82,15 @@ Please follow the previous lab till the last step. Once you are able to provisio
 
 Wait for a bit until the plan succeeds and plan logs are available under _Logs_. Take a look to familiarize yourself with the log format. Scroll down until you see the line `Plan: X to add, 0 to change, 0 to destroy`.
 
-6. Once satisfied by the plan logs, we put it into motion by starting the *Apply* process.
+6. Once satisfied by the plan logs, put it to action by starting the *Apply* process.
 
     ```
     terraform apply
     ```
-The apply process can take some time, so patience is required.
 
 ## Task 3: Inspect Created Objects
 
-Go to *OCI console* under compartment which was selected for deployment and take a few moments to explore the resources created. 
+After apply is successful, Go to *OCI console* under compartment which was selected for deployment and review the resources created. 
 
 Ask yourself how these resources will make your environment more healthy.
 

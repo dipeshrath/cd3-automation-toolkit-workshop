@@ -25,36 +25,41 @@ In this lab, you will:
     
     Note: Please check the tenancyconfig.properties file for prefix information
 
-1. Add the Excel file path for "cd3file" parameter. You can find a file in below location.
+1. Add the previously filled Excel file under any location inside the container. 
+
+2. Open below file
 
     ```
-    /cd3user/tenancies/<prefix>_setUpOCI.properties
+    /cd3user/tenancies/<prefix>/<prefix>_setUpOCI.properties
     ```
+3. Add the Excel file path under ```cd3file``` parameter. 
 
-2. Set below parameter to *create_resources*, since we are creating new resources, and not modifying any existing ones.
-
-    ```
-    workflow_type = create_resources
-    ```
-
-3. Save the file.
+4. Set ```workflow_type``` to *create_resources*, since we are creating new resources.
+    
+5. Save the file.
 
 
 ## Task 2: Execute setUpOCI.py
 
-1. Run setUpOCI.py script to create the Terraform files for our resources.
+1. 
+     >**Note:**
+     setUpOCI.py script generates the Terraform files for the resources.
 
-2. Navigate to below path and execute the command.
+    To run setUpOCI.py script, Navigate to below path and execute the command.
         
     ```
     cd /cd3user/oci_tools/cd3_automation_toolkit/
     python setUpOCI.py /cd3user/tenancies/<prefix>/<prefix>_setUpOCI.properties
     ```
+
 ## Task 3: Generate terraform files and create our resources in OCI
 
 1. Select option 1 from *setUpOCI.py* output menu. 
 
-    >**Note:** Identity--> 1: Add/Modify/Delete Compartments. 
+    ```Identity--> 1: Add/Modify/Delete Compartments```
+
+     >**Note:** Since we are creating all resources in the *cd3compartment*, we should first create the compartment in OCI and run fetch compartments again. This way the variables file has the *compartment* entry and other resources can be created in it.
+
 
 2. Navigate to identity directory under home region directory after Terraform files are created.
 
@@ -62,31 +67,32 @@ In this lab, you will:
     cd /cd3user/tenancies/<prefix>/terraform_files/<home_region>/identity
     ```
 
-3. Execute terraform init, plan and apply to create the compartment.
-
-    >**Note:** Since we are creating all resources in the *democompartment*, we should first create the compartment in OCI and run fetch compartments again. This way the variables file has the *compartment* entry and other resources can be created in it.
-
-4. Go back to the below folder and execute the setUpOCI.py again as shown in *Task 3* and select *fetch compartments*.
-
+3. Execute below commands in sequence to create the compartment.
     ```
-    /cd3user/oci_tools/cd3_automation_toolkit/
+       terraform init
+       terraform plan 
+       terraform apply
     ```
+     
+   
+4. Navigate back to the ```/cd3user/oci_tools/cd3_automation_toolkit/``` folder and execute the ```setUpOCI.py``` again as shown in *Task 2* and select *fetch compartments*.
+
 
     >**Note:** This option will update OCID of newly created compartments in TF file.
 
-5. Select: 3,4,5,6 options to create terraform files for Network, Compute, Storage and Database respectively from the *setUpOCI.py* output menu.
+5. Select: 4,7,8,9 options to create terraform files for Network, Compute, Storage and Database respectively from the *setUpOCI.py* output menu.
 
-    - Under *Network*: Select- Options 1,3,4 
+    - Under *Network*: Select- Options 1
     - Under *Compute*: Select- Option 2
     - Under *Storage*: Select- Option 1
     - Under *Database*: Select- Option 3
 
     >**Note:** Terraform files are generated under the respective Service directories of the Region directory.
 
-6. Once the Terraform files are created from above step, navigate to below path for each of the services: Network, Compute, Database and Block volume.
+6. Once the Terraform files are generated from above step, navigate to below path for each of the services: Network, Compute, Database and Block volume.
 
     ```
-    /cd3user/tenancies/<prefix>/terraform_files/<region>/<services>
+    /cd3user/tenancies/<prefix>/terraform_files/<region>/<service_folder>
     ```
 
 7. Enter into each of the required service folders (network, compute, database) and execute the below terraform commands to provision the resources in OCI.
@@ -97,9 +103,7 @@ In this lab, you will:
     terraform apply 
     ```
 
-    >Note: We are using terraform commands to provision resources in this lab. We will also leverage this terraform code in resource manager in upcoming lab.  
-
-8. Review the terraform output and the created resources can be viewed on the OCI console.
+8. Review the terraform output and verify the provisioned resources on OCI console.
 
     ![TFAPPLY](./images/apply-output.png "Terraform Output")
 

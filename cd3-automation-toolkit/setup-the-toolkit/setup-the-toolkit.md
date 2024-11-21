@@ -22,6 +22,10 @@ The objectives of this lab are:
 
 - The user deploying the stack should have access to launch OCI Resource Manager Stack, Compute Instance and Network resources.
 
+
+
+>**Important Note:** To launch the container in a cd3 workvm in OCI, follow **Task 1** (Single Click Deployment). To launch the container in your local system, follow **Task 2**
+
 ## Task 1: Launch CD3 container in OCI- Single Click deployment
 
 1. **Click** on the below button to launch the Resource Manager Stack that creates the CD3 WorkVM.
@@ -43,9 +47,9 @@ The objectives of this lab are:
    ![rmstackoutput](./images/rmstackoutput_v1.png)
 
 
-  After executing the container, jump to [Task 3](#task-3-connect-container-to-oci-tenancy) to connect this container to OCI tenancy.
+  After logging in to the container, jump to [Task 3](#task-3-connect-container-to-oci-tenancy) to connect this container to OCI tenancy.
 
-## Task 2: Launch CD3 container in Local System
+## Task 2: Launch CD3 container in Local System (Only required for manual launch)
 
 Make sure the [prerequisites](#prerequisites) are met before proceeding.
 
@@ -78,7 +82,7 @@ Make sure the [prerequisites](#prerequisites) are met before proceeding.
 
 1. For the scope of this tutorial, we will use API-Key authentication. Navigate to ```cd /cd3user/oci_tools/cd3_automation_toolkit/user-scripts/```
 
-    >**Note:** Check [Github documentation](https://github.com/oracle-devrel/cd3-automation-toolkit) to configure other methods.
+    >**Note:** Check [Github documentation](https://oracle-devrel.github.io/cd3-automation-toolkit/latest/authmechanisms/) to configure other methods.
 
 
 2. Create RSA key pair by  executing ```createAPIKey.py``` under **user-scripts** folder.
@@ -145,7 +149,7 @@ Make sure the [prerequisites](#prerequisites) are met before proceeding.
    
     ```
 
-    >**Note:**  If you selected Instance Principal or session token method for authentication, follow the commented guidelines in the *tenancyconfig.properties* file or [Auth Mechanisms documentation](https://github.com/oracle-devrel/cd3-automation-toolkit) and proceed accordingly.
+    >**Note:**  If you selected Instance Principal or session token method for authentication, follow the commented guidelines in the *tenancyconfig.properties* file or [Auth Mechanisms documentation](https://oracle-devrel.github.io/cd3-automation-toolkit/latest/authmechanisms/) and proceed accordingly.
 
 
 5. Under **Deployment Parameters** section in ```tenancyconfig.properties``` file, Leave the default value for **outdir structure file** parameter to group your generated terraform auto.tfvars files for each service.
@@ -153,7 +157,7 @@ Make sure the [prerequisites](#prerequisites) are met before proceeding.
     >**Note:** To place all the generated terraform auto.tfvars files directly under the region folder, comment the parameter with the default outdirectory structure file path and uncomment the one above it.
 
 
-6. Under **Advanced parameters for DevOps** section in tenancyconfig.properties file set the parameter   ```use_oci_devops_git=yes``` to use the toolkit with **Jenkins**.
+6. To use the toolkit with **Jenkins**, Under **Advanced parameters for DevOps** section in tenancyconfig.properties file set the parameters  ```use_oci_devops_git=yes```, ```use_remote_state=yes``` 
    
     >**Note:** If you plan to use the toolkit with CLI, skip this section. Since we are using API-key Auth mechanism, the **User details** section can be skipped.
 
@@ -212,7 +216,7 @@ Make sure the [prerequisites](#prerequisites) are met before proceeding.
       ```
 
 
-10. After the createTenancyConfig.py script is successfully executed, customer specific files are created under ```/cd3user/tenancies/<prefix>```.
+10. After the createTenancyConfig.py script is successfully executed, customer specific files are created under ```/cd3user/tenancies/<prefix>```. This will be the working directory for this prefix.
   
 In this lab, we have learnt how to **setup CD3 toolkit container** and **connect** it to OCI tenancy.
 
